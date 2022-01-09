@@ -1,0 +1,16 @@
+var getPoolConnection = require('./connection-pool');
+
+var createUserTable = () => {
+    getPoolConnection((err, connection) => {
+        if(err) console.log(err)
+        connection.query('CREATE TABLE Users ( userId int NOT NULL AUTO_INCREMENT, email varchar(255), password varchar(255), PRIMARY KEY (`userID`) )', (err, rows) => {
+            if(!err) {
+                console.log(rows)
+            } else {
+                console.log(err)
+            }
+        })
+    })
+}
+
+module.exports = createUserTable;

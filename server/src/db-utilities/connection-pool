@@ -1,0 +1,22 @@
+const mysql = require('mysql')
+
+// this is assuming an existing database called node-vue-sql-starter-core on an initial xampp connection configuration
+const pool = mysql.createPool({
+    connectionLimit : 10,
+    host : 'localhost',
+    user : 'root',
+    password : '',
+    database : 'node-vue-sql-starter-core'
+})
+
+var getPoolConnection = cb => {
+    pool.getConnection((poolConnectionErr, connection) => {
+        if(poolConnectionErr) {
+            console.log('poolConnectionErr: ' + poolConnectionErr)
+            throw poolConnectionErr
+        }
+        cb(null, connection)
+    })
+}
+
+module.exports = getPoolConnection;
